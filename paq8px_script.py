@@ -4,7 +4,7 @@ import subprocess
 filelist = []
 
 '''
-This script will generate a filelist file which will be used by paq8px_v142.exe for compressing and testing if you use the -t argument.
+This script will generate a filelist file which will be used by paq8px_v143.exe for compressing and testing if you use the -t argument.
 
 Arguments are explained below in the code and in the readme
 
