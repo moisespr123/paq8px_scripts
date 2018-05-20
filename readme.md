@@ -21,7 +21,7 @@ To compress a file:
 python paq8px_v142.py -9a C:\My_file -t
 ```
 
-The above will compress a file called `My_file` into an archive named `My_file.paq8pxv142` which is stored at the same directory as the file, using compression level 9 and using the 'Adaptive learning rate' switch. It will then test the archive because we passed the `-t` argument.\
+The above will compress a file called `My_file` which is in `C:\` into an archive named `My_file.paq8pxv142` which is stored at the same directory as the file, using compression level 9 and using the 'Adaptive learning rate' switch. It will then test the archive because we passed the `-t` argument.
 
 If you want to compress a folder, the command is similar, but you point to a folder/directory:
 
@@ -82,4 +82,4 @@ It is highly recommended that you test your archives.
     https://tldrlegal.com/license/gnu-general-public-license-v2
  ```
 
-Enjoy!
+## Enjoy!
