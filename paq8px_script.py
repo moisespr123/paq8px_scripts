@@ -63,11 +63,11 @@ if filelist:
     if args.test:
         print("\nVerifying archive...\n")
         if not os.path.dirname(output_location):
-            workingdirectory = os.path.dirname(os.path.realpath(__file__))
+            archive_to_test = os.path.dirname(os.path.realpath(__file__)) + '/' + output_location
         else:
-            workingdirectory = os.path.dirname(output_location)
-        cmd = [os.path.dirname(os.path.realpath(__file__)) + '/' + exe_filename, '-t', output_location + '.paq8px' + paq8px_version]
-        subprocess.run(cmd, shell=True, cwd=workingdirectory)
+            archive_to_test = output_location
+        cmd = [os.path.dirname(os.path.realpath(__file__)) + '/' + exe_filename, '-t', archive_to_test + '.paq8px' + paq8px_version]
+        subprocess.run(cmd, shell=True, cwd=os.path.dirname(input_location))
     if args.remove:
         print("\nRemoving the filelist file")
         os.remove(os.path.dirname(input_location) + '/' + filename + '.txt')
