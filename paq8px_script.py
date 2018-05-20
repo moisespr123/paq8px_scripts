@@ -57,12 +57,14 @@ if filelist:
         if not os.path.isdir(file):
             txt_file.write(file + '\n')
     txt_file.close()
-    print("Starting compression...")
+    print("\nStarting compression...\n")
     cmd = [exe_filename, compression_arg, '@' + os.path.dirname(input_location) + '/' + filename + '.txt', output_location + '.paq8px' + paq8px_version]
     subprocess.run(cmd, shell=True)
     if args.test:
-        print("Verifying archive")
+        print("\nVerifying archive...\n")
         cmd = [os.path.dirname(os.path.realpath(__file__)) + '/' + exe_filename, '-t', output_location + '.paq8px' + paq8px_version]
         subprocess.run(cmd, shell=True, cwd=os.path.dirname(output_location))
     if args.remove:
+        print("\nRemoving the filelist file")
         os.remove(os.path.dirname(input_location) + '/' + filename + '.txt')
+print("\nCompression finished!")
