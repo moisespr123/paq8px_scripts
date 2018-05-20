@@ -62,8 +62,12 @@ if filelist:
     subprocess.run(cmd, shell=True)
     if args.test:
         print("\nVerifying archive...\n")
+        if not os.path.dirname(output_location):
+            workingdirectory = os.path.dirname(os.path.realpath(__file__))
+        else:
+            workingdirectory = os.path.dirname(output_location)
         cmd = [os.path.dirname(os.path.realpath(__file__)) + '/' + exe_filename, '-t', output_location + '.paq8px' + paq8px_version]
-        subprocess.run(cmd, shell=True, cwd=os.path.dirname(output_location))
+        subprocess.run(cmd, shell=True, cwd=workingdirectory)
     if args.remove:
         print("\nRemoving the filelist file")
         os.remove(os.path.dirname(input_location) + '/' + filename + '.txt')
