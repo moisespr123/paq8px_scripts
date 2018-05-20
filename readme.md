@@ -1,6 +1,6 @@
 # PAQ8PX file/folder compression + testing script:
 
-This script will compress files and folders by generating a filelist file which will be used by paq8px_v142.exe for compressing. It is also used for testing if you use the -t argument.
+This script will compress files and folders by generating a filelist file which will be used by paq8px_v143.exe for compressing. It is also used for testing if you use the -t argument.
 
 If you want to test the archive later, please save the .txt file
 
