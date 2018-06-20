@@ -1,11 +1,11 @@
 # PAQ8PX file/folder compression + testing script:
 
-This script will compress files and folders by generating a filelist file which will be used by paq8px_v143.exe for compressing. It is also used for testing if you use the -t argument.
+This script will compress files and folders by generating a filelist file which will be used by paq8px_v144.exe for compressing. It is also used for testing if you use the -t argument.
 
 If you want to test the archive later, please save the .txt file
 
 # Requirements:
-* You'll need a paq8px (latest as of this readme is `paq8px_v143.exe`) executable in the same location as the script. You can download paq8px v143 from here: [https://encode.ru/threads/342-paq8px?p=56826&viewfull=1#post56826](https://encode.ru/threads/342-paq8px?p=56826&viewfull=1#post56826)
+* You'll need a paq8px (latest as of this readme is `paq8px_v144.exe`) executable in the same location as the script. You can download paq8px v144 from here: [https://encode.ru/threads/342-paq8px?p=56826&viewfull=1#post56826](https://encode.ru/threads/342-paq8px?p=56826&viewfull=1#post56826)
 * You'll also need Python installed in your machine. This script was tested using Python 3.6.5. Get Python at https://www.python.org/
 
 # Usage:
