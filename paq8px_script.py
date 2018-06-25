@@ -17,7 +17,7 @@ parser = argparse.ArgumentParser(description='This script will generate a fileli
 optional = parser._action_groups.pop()
 required = parser.add_argument_group('required arguments')
 required.add_argument('-i', '--input', help="Input file or folder to compress. REQUIRED", required=True)
-optional.add_argument('-v', '--version', help='Version of PAQ8PX to use. Example: 144. Default is 144', required=False, default='144')
+optional.add_argument('-v', '--version', help='Version of PAQ8PX to use. Example: 145. Default is 145', required=False, default='145')
 optional.add_argument('-l', '--level', help="Compression level and switches. Example: 9a to compress using level 9 and with the 'Adaptive learning rate' switch. Default is 9a", required=False, default='9a')
 optional.add_argument('-o', '--output', help="Output file to use. If not used, the archive will be saved at the root of the parent folder where the file/folder to compress is located. Do not provide extension", required=False, default=None)
 optional.add_argument('-t', '--test', help="Optional flag to test the archive after compressing it. It is recommended to use this option. Default is not to test", required=False, action='store_true')
