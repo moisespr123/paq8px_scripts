@@ -1,11 +1,11 @@
 # PAQ8PX file/folder compression + testing script:
 
-This script will compress files and folders by generating a filelist file which will be used by paq8px_v148.exe for compressing. It is also used for testing if you use the -t argument.
+This script will compress files and folders by generating a filelist file which will be used by paq8px_v170.exe for compressing. It is also used for testing if you use the -t argument.
 
 If you want to test the archive later, please save the .txt file
 
 # Requirements:
-* You'll need a paq8px (latest as of this readme is `paq8px_v148.exe`) executable in the same location as the script. You can download paq8px v148 from here: [https://encode.ru/threads/342-paq8px?p=57220&viewfull=1#post57220](https://encode.ru/threads/342-paq8px?p=57220&viewfull=1#post57220)
+* You'll need a paq8px (latest as of this readme is `paq8px_v170.exe`) executable in the same location as the script. You can download paq8px v170 from here: [https://encode.ru/threads/342-paq8px?p=58698&viewfull=1#post58698](https://encode.ru/threads/342-paq8px?p=58698&viewfull=1#post58698)
 * You'll also need Python installed in your machine. This script was tested using Python 3.6.5. Get Python at https://www.python.org/
 
 # Usage:
@@ -16,7 +16,7 @@ To compress a file:
 python paq8px_script.py -i C:\My_file -t
 ```
 
-The above will use PAQ8PX v148 to compress a file called `My_file` which is in `C:\` into an archive named `My_file.paq8pxv148` which is stored at the same directory as the file, using compression level 9 and using the 'Adaptive learning rate' switch. It will then test the archive because we passed the `-t` argument.
+The above will use PAQ8PX v170 to compress a file called `My_file` which is in `C:\` into an archive named `My_file.paq8pxv170` which is stored at the same directory as the file, using compression level 9 and using the 'Adaptive learning rate' switch. It will then test the archive because we passed the `-t` argument.
 
 If you want to compress a folder, the command is similar, but you point to a folder/directory:
 
@@ -34,7 +34,7 @@ required arguments:
 optional arguments:
   -h, --help            show this help message and exit
   -v VERSION, --version VERSION
-                        Version of PAQ8PX to use. Example: 148. Default is 148
+                        Version of PAQ8PX to use. Example: 170. Default is 170
   -l LEVEL, --level LEVEL
                         Compression level and switches. Example: 9a to
                         compress using level 9 and with the 'Adaptive learning
@@ -55,7 +55,7 @@ optional arguments:
 
 The compression argument is exactly the same as in the paq8px. We are just passing it to the cmd process.
 
-From the paq8px_v148 executable, valid levels and switches are the following:
+From the paq8px_v170 executable, valid levels and switches are the following:
 
 ```
  -LEVEL:
@@ -75,7 +75,7 @@ From the paq8px_v148 executable, valid levels and switches are the following:
       s = Skip the color transform, just reorder the RGB channels
 ```
 
-You can run `paq8px_v148.exe` for more information. Please note that the script only does compression using paq8px compression level and switches and also does testing by providing the -t argument. Nothing else is implemented in this script.
+You can run `paq8px_v170.exe` for more information. Please note that the script only does compression using paq8px compression level and switches and also does testing by providing the -t argument. Nothing else is implemented in this script.
 
 To extract a file, simply use the paq8px executable.
 
