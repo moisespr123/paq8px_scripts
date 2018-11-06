@@ -37,6 +37,7 @@ paq8px_version = args.version
 exe_filename = 'paq8px_v' + paq8px_version + '.exe'
 
 #generates the list
+single_file = False
 if os.path.isdir(input_location):
     print("Listing files to compress")
     for dir_, _, files in os.walk(input_location):
@@ -47,18 +48,22 @@ if os.path.isdir(input_location):
             print(relFile)
 else:
     print("file to compress:", filename)
-    filelist.append(filename)
+    single_file = True
 
-if filelist:
-    print("Writing filelist.txt")
-    txt_file = open(os.path.dirname(input_location) + '/' + filename + '.txt', 'w')
-    txt_file.write('\n')
-    for file in filelist:
-        if not os.path.isdir(file):
-            txt_file.write(file + '\n')
-    txt_file.close()
+if filelist or single_file:
+    if filelist:
+        print("Writing filelist.txt")
+        txt_file = open(os.path.dirname(input_location) + '/' + filename + '.txt', 'w')
+        txt_file.write('\n')
+        for file in filelist:
+            if not os.path.isdir(file):
+                txt_file.write(file + '\n')
+        txt_file.close()
+        input_file = '@' + os.path.dirname(input_location) + '/' + filename + '.txt'
+    else:
+        input_file = filename
     print("\nStarting compression...\n")
-    cmd = [exe_filename, compression_arg, '@' + os.path.dirname(input_location) + '/' + filename + '.txt', output_location + '.paq8px' + paq8px_version]
+    cmd = [exe_filename, compression_arg, input_file, output_location + '.paq8px' + paq8px_version]
     subprocess.run(cmd, shell=True)
     if args.test:
         print("\nVerifying archive...\n")
