@@ -14,11 +14,11 @@ If you want to test the archive later, please save the .txt file
 Enjoy!
 '''
 
-parser = argparse.ArgumentParser(description='This script will generate a filelist file which will be used by paq8px_v175.exe for compressing. It is also used for testing if you use the -t argument')
+parser = argparse.ArgumentParser(description='This script will generate a filelist file which will be used by paq8px_v176.exe for compressing. It is also used for testing if you use the -t argument')
 optional = parser._action_groups.pop()
 required = parser.add_argument_group('required arguments')
 required.add_argument('-i', '--input', help="Input file or folder to compress. REQUIRED", required=True)
-optional.add_argument('-v', '--version', help='Version of PAQ8PX to use. Example: 175. Default is 175', required=False, default='175')
+optional.add_argument('-v', '--version', help='Version of PAQ8PX to use. Example: 176. Default is 176', required=False, default='176')
 optional.add_argument('-l', '--level', help="Compression level and switches. Example: 9a to compress using level 9 and with the 'Adaptive learning rate' switch. Default is 9a", required=False, default='9a')
 optional.add_argument('-o', '--output', help="Output file to use. If not used, the archive will be saved at the root of the parent folder where the file/folder to compress is located. Do not provide extension", required=False, default=None)
 optional.add_argument('-t', '--test', help="Optional flag to test the archive after compressing it. It is recommended to use this option. Default is not to test", required=False, action='store_true')
