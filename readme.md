@@ -58,10 +58,10 @@ The compression argument is exactly the same as in the paq8px. We are just passi
 From the paq8px_v178 executable, valid levels and switches are the following:
 
 ```
- -LEVEL:
-      -0 = store (uses 30 MB)
-      -1 -2 -3 = faster (uses 60, 69, 88 MB)
-      -4 -5 -6 -7 -8 -9 = smaller (uses 202, 330, 586, 1099, 2125, 4178 MB)
+-LEVEL:
+      -0 = store (uses 360 MB)
+      -1 -2 -3 = faster (uses 372, 386, 414 MB)
+      -4 -5 -6 -7 -8 -9 = smaller (uses 471, 584, 810, 1263, 2170, 3982 MB)
     The listed memory requirements are indicative, actual usage may vary
     depending on several factors including need for temporary files,
     temporary memory needs of some preprocessing (transformations), etc.
@@ -73,6 +73,7 @@ From the paq8px_v178 executable, valid levels and switches are the following:
           (english.dic, english.exp)
       a = Adaptive learning rate
       s = Skip the color transform, just reorder the RGB channels
+      f = Bypass modeling and mixing on long matches
 ```
 
 You can run `paq8px_v178.exe` for more information. Please note that the script only does compression using paq8px compression level and switches and also does testing by providing the -t argument. Nothing else is implemented in this script.
