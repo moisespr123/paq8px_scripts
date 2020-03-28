@@ -11,7 +11,6 @@ def extract_file(file: str, output: str, exe_filename: str) -> None:
 
 
 if __name__ == "__main__":
-    filelist = []
 
     '''
     This script will extract paq8px files inside a folder.
@@ -21,8 +20,9 @@ if __name__ == "__main__":
     Enjoy!
     '''
 
-    parser = argparse.ArgumentParser(
-        description='This script will generate a filelist file which will be used by paq8px_v179fix5.exe for compressing. It is also used for testing if you use the -t argument')
+    parser = argparse.ArgumentParser(description='This script will generate a filelist file which will be used by '
+                                                 'paq8px_v185.exe for compressing. It is also used for testing if '
+                                                 'you use the -t argument')
     optional = parser._action_groups.pop()
     required = parser.add_argument_group('required arguments')
     required.add_argument('-i', '--input', help="Input folder to compress. REQUIRED", required=True)

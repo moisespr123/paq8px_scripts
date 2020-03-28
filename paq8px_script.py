@@ -14,7 +14,8 @@ if __name__ == "__main__":
     filelist = []
 
     '''
-    This script will generate a filelist file which will be used by paq8px for compressing and testing if you use the -t argument.
+    This script will generate a filelist file which will be used by paq8px for compressing and testing if you use the 
+    -t argument.
     
     Arguments are explained below in the code and in the readme
     
@@ -23,20 +24,33 @@ if __name__ == "__main__":
     Enjoy!
     '''
 
-    parser = argparse.ArgumentParser(description='This script will generate a filelist file which will be used by paq8px_v179fix5.exe for compressing. It is also used for testing if you use the -t argument')
+    parser = argparse.ArgumentParser(description='This script will generate a filelist file which will be used by '
+                                                 'paq8px_v185.exe for compressing. It is also used for testing if you '
+                                                 'use the -t argument')
     optional = parser._action_groups.pop()
     required = parser.add_argument_group('required arguments')
     required.add_argument('-i', '--input', help="Input file or folder to compress. REQUIRED", required=True)
-    optional.add_argument('-v', '--version', help='Version of PAQ8PX to use. Example: 185. Default is 185', required=False, default='185')
-    optional.add_argument('-l', '--level', help="Compression level and switches. Example: 9a to compress using level 9 and with the 'Adaptive learning rate' switch. Default is 9a", required=False, default='9a')
-    optional.add_argument('-o', '--output', help="Output file to use. If not used, the archive will be saved at the root of the parent folder where the file/folder to compress is located. Do not provide extension", required=False, default=None)
-    optional.add_argument('-t', '--test', help="Optional flag to test the archive after compressing it. It is recommended to use this option. Default is not to test", required=False, action='store_true')
-    optional.add_argument('-r', '--remove', help="Deletes the filelist text file. Not recommended unless you plan not to test the archive later. Default is not to remove", required=False, default=False, action='store_true')
-    optional.add_argument('-mt', '--multithread', help="Compresses each file on a separate thread. This creates individual archives with just one file", required=False, default=False, action='store_true')
+    optional.add_argument('-v', '--version', help='Version of PAQ8PX to use. Example: 185. Default is 185',
+                          required=False, default='185')
+    optional.add_argument('-l', '--level', help="Compression level and switches. Example: 9a to compress using level 9 "
+                                                "and with the 'Adaptive learning rate' switch. Default is 9a",
+                          required=False, default='9a')
+    optional.add_argument('-o', '--output', help="Output file to use. If not used, the archive will be saved at the "
+                                                 "root of the parent folder where the file/folder to compress is "
+                                                 "located. Do not provide extension", required=False, default=None)
+    optional.add_argument('-t', '--test', help="Optional flag to test the archive after compressing it. It is "
+                                               "recommended to use this option. Default is not to test",
+                          required=False, action='store_true')
+    optional.add_argument('-r', '--remove', help="Deletes the filelist text file. Not recommended unless you plan not "
+                                                 "to test the archive later. Default is not to remove", required=False,
+                          default=False, action='store_true')
+    optional.add_argument('-mt', '--multithread', help="Compresses each file on a separate thread. This creates "
+                                                       "individual archives with just one file", required=False,
+                          default=False, action='store_true')
     parser._action_groups.append(optional)
     args = parser.parse_args()
 
-    #variables:
+    # Variables:
     compression_arg = '-' + args.level
     input_location = args.input
     if not args.output:
@@ -47,7 +61,7 @@ if __name__ == "__main__":
     paq8px_version = args.version
     exe_filename = 'paq8px_v' + paq8px_version + '.exe'
 
-    # generates the list
+    # Generates the list
     if not args.multithread:
         single_file = False
         if os.path.isdir(input_location):
@@ -83,7 +97,8 @@ if __name__ == "__main__":
                     archive_to_test = os.path.dirname(os.path.realpath(__file__)) + '/' + output_location
                 else:
                     archive_to_test = output_location
-                cmd = [os.path.dirname(os.path.realpath(__file__)) + '/' + exe_filename, '-t', archive_to_test + '.paq8px' + paq8px_version]
+                cmd = [os.path.dirname(os.path.realpath(__file__)) + '/' + exe_filename, '-t',
+                       archive_to_test + '.paq8px' + paq8px_version]
                 subprocess.run(cmd, shell=True, cwd=os.path.dirname(input_location))
             if args.remove:
                 print("\nRemoving the filelist file")
