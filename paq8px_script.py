@@ -11,7 +11,6 @@ def compress_file(file: str, output: str, exe_filename: str, compression_arg: st
 
 
 if __name__ == "__main__":
-    print("I'm here")
     filelist = []
 
     '''
@@ -47,9 +46,6 @@ if __name__ == "__main__":
     filename = os.path.basename(input_location)
     paq8px_version = args.version
     exe_filename = 'paq8px_v' + paq8px_version + '.exe'
-
-
-
 
     # generates the list
     if not args.multithread:
