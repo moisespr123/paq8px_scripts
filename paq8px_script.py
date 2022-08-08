@@ -2,11 +2,14 @@ import os
 import argparse
 import subprocess
 from multiprocessing import Pool
+from sys import platform
 
 
 def compress_file(file: str, output: str, exe_filename: str, compression_arg: str, paq8px_version: str) -> None:
-    cmd = [exe_filename, compression_arg, file, output + '.paq8px' + paq8px_version]
-    print(cmd)
+    if platform == "win32":
+        cmd = [exe_filename, compression_arg, file, output + '.paq8px' + paq8px_version]
+    else:
+        cmd = "{} {} \"{}\" \"{}.paq8px{}\"".format(exe_filename, compression_arg, file, output, paq8px_version)
     subprocess.run(cmd, shell=True)
 
 
@@ -27,14 +30,14 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='This script will generate a filelist file which will be used by '
                                                  'paq8px_v185.exe for compressing. It is also used for testing if you '
                                                  'use the -t argument')
-    optional = parser._action_groups.pop()
     required = parser.add_argument_group('required arguments')
+    optional = parser.add_argument_group('optional arguments')
     required.add_argument('-i', '--input', help="Input file or folder to compress. REQUIRED", required=True)
-    optional.add_argument('-v', '--version', help='Version of PAQ8PX to use. Example: 185. Default is 185',
-                          required=False, default='185')
+    optional.add_argument('-v', '--version', help='Version of PAQ8PX to use. Example: 207. Default is 207',
+                          required=False, default='207')
     optional.add_argument('-l', '--level', help="Compression level and switches. Example: 9a to compress using level 9 "
-                                                "and with the 'Adaptive learning rate' switch. Default is 9a",
-                          required=False, default='9a')
+                                                "and with the 'Adaptive learning rate' switch. Default is 9",
+                          required=False, default='9')
     optional.add_argument('-o', '--output', help="Output file to use. If not used, the archive will be saved at the "
                                                  "root of the parent folder where the file/folder to compress is "
                                                  "located. Do not provide extension", required=False, default=None)
@@ -47,7 +50,11 @@ if __name__ == "__main__":
     optional.add_argument('-mt', '--multithread', help="Compresses each file on a separate thread. This creates "
                                                        "individual archives with just one file", required=False,
                           default=False, action='store_true')
-    parser._action_groups.append(optional)
+    optional.add_argument('-n', '--nativecpu', help="Use the native CPU version. "
+                                                    "These versions usually ends with _nativecpu and may provide"
+                                                    "performane improvements on your machine over the generic version",
+                          required=False,
+                          default=False, action='store_true')
     args = parser.parse_args()
 
     # Variables:
@@ -59,7 +66,14 @@ if __name__ == "__main__":
         output_location = args.output
     filename = os.path.basename(input_location)
     paq8px_version = args.version
-    exe_filename = 'paq8px_v' + paq8px_version + '.exe'
+    exe_filename = 'paq8px_v' + paq8px_version
+    if args.nativecpu:
+        exe_filename += "_nativecpu"
+    if platform == "win32":
+        exe_filename += ".exe"
+    elif platform.startswith("linux"):
+        exe_filename = "./" + exe_filename
+
 
     # Generates the list
     if not args.multithread:
