@@ -5,7 +5,7 @@ from multiprocessing import Pool
 from sys import platform
 
 
-def set_archive_filename(output: str, paq8px_version: str):
+def set_archive_filename(output: str, paq8px_version: str) -> str:
     basename, ext = os.path.splitext(output)
     if ext == 'paq8px{}'.format(paq8px_version):
         return output
@@ -25,7 +25,7 @@ def compress_file(file: str, output: str, exe_filename: str, compression_arg: st
     subprocess.run(cmd, shell=True)
 
 
-def test_archive(input_location, archive, exe_filename, paq8px_version):
+def test_archive(input_location: str, archive: str, exe_filename: str, paq8px_version: str) -> None:
     archive = set_archive_filename(archive, paq8px_version)
     if platform == "win32":
         cmd = [exe_filename, '-t', archive]
@@ -35,7 +35,7 @@ def test_archive(input_location, archive, exe_filename, paq8px_version):
     subprocess.run(cmd, shell=True)
 
 
-def create_text_file(filelist, input_location, filename):
+def create_text_file(filelist: list, input_location: str, filename: str) -> str:
     if filelist:
         filelist_path = os.path.join(input_location, filename + '.txt')
         print("Writing filelist.txt")
@@ -50,7 +50,7 @@ def create_text_file(filelist, input_location, filename):
         return input_location
 
 
-def get_output_location(args):
+def get_output_location(args: argparse) -> str:
     if not args.output:
         output_location = args.input
     else:
@@ -58,7 +58,7 @@ def get_output_location(args):
     return output_location
 
 
-def get_exe_filename(paq8px_version, nativecpu):
+def get_exe_filename(paq8px_version: str, nativecpu: bool) -> str:
     exe_filename = 'paq8px_v' + paq8px_version
     if nativecpu:
         exe_filename += "_nativecpu"
@@ -68,26 +68,30 @@ def get_exe_filename(paq8px_version, nativecpu):
         exe_filename = "./" + exe_filename
     return exe_filename
 
-def parse_action(args):
+
+def parse_action(args: argparse) -> ():
     action = "compress"
+    action_finished = "Compression"
     if args.test and not args.test_only:
         action += " and test"
+        action_finished += " and testing"
     if args.test_only:
         action = "test"
-    return action
+        action_finished = "Testing"
+    return action, action_finished
 
 
-def single_threaded_compression(args, input_location, output_location, filename,
-                              exe_filename, paq8px_version, compression_args):
+def single_threaded_compression(args: argparse, input_location: str, output_location: str, filename: str,
+                                exe_filename: str, paq8px_version: str, compression_args: str) -> None:
     filelist = []
-    action = parse_action(args)
+    action, _ = parse_action(args)
     if os.path.isdir(input_location):
         print("Listing files to {}".format(action))
         for dir_, _, files in os.walk(input_location):
-            for fileName in files:
-                relFile = os.path.join(fileName)
-                filelist.append(relFile)
-                print(relFile)
+            for fileName in sorted(files):
+                rel_file = os.path.join(fileName)
+                filelist.append(rel_file)
+                print(rel_file)
         single_file = False
     else:
         print("file to {}".format(action), filename)
@@ -102,8 +106,8 @@ def single_threaded_compression(args, input_location, output_location, filename,
         test_archive(input_location, output_location, exe_filename, paq8px_version)
 
 
-def multithreaded_compression(args, input_location, output_location, filename,
-                              exe_filename, paq8px_version, compression_args):
+def multithreaded_compression(args: argparse, input_location: str, output_location: str, filename: str,
+                              exe_filename: str, paq8px_version: str, compression_args: str) -> None:
     if os.path.isdir(input_location):
         print("Compressing each file separately")
         pool = Pool()
@@ -120,10 +124,9 @@ def multithreaded_compression(args, input_location, output_location, filename,
         print("\nVerifying archive is not yet implemented for multi-threaded individual file compression...\n")
 
 
-def main():
-
-    '''
-    This script will generate a filelist file which will be used by paq8px for compressing and testing if you use the 
+def main() -> None:
+    """
+    This script will generate a filelist file which will be used by paq8px for compressing and testing if you use the
     -t argument.
 
     Arguments are explained below in the code and in the readme
@@ -131,11 +134,11 @@ def main():
     If you want to test the archive later, please save the .txt file
 
     Enjoy!
-    '''
+    """
 
     parser = argparse.ArgumentParser(description='This script will generate a filelist file which will be used by '
                                                  'paq8px_v207 for compressing. It is also used for testing if you '
-                                                 'use the -t argument')
+                                                 'use the -t or -to argument')
     required = parser.add_argument_group('required arguments')
     optional = parser.add_argument_group('optional arguments')
     required.add_argument('-i', '--input', help="Input file or folder to compress. REQUIRED", required=True)
@@ -185,8 +188,9 @@ def main():
     if args.remove and not args.multithread:
         print("\nRemoving the filelist file")
         os.remove(os.path.join(input_location, filename + '.txt'))
-    print("\nCompression finished!")
+    _, action_finished = parse_action(args)
+    print("\n{} finished!".format(action_finished))
 
 
 if __name__ == "__main__":
-   main()
+    main()
