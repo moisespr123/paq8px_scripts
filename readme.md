@@ -42,7 +42,7 @@ optional arguments:
   -mt, --multithread    Compresses each file on a separate thread. This creates individual
                         archives with just one file
   -n, --nativecpu       Use the native CPU version. These versions usually ends with _nativecpu
-                        and may provideperformane improvements on your machine over the generic
+                        and may provide performane improvements on your machine over the generic
                         version
 ```
 

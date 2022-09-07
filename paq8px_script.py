@@ -162,7 +162,7 @@ def main() -> None:
                                                        "individual archives with just one file", required=False,
                           default=False, action='store_true')
     optional.add_argument('-n', '--nativecpu', help="Use the native CPU version. "
-                                                    "These versions usually ends with _nativecpu and may provide"
+                                                    "These versions usually ends with _nativecpu and may provide "
                                                     "performane improvements on your machine over the generic version",
                           required=False,
                           default=False, action='store_true')
